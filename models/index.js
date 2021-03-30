@@ -14,7 +14,7 @@ User.hasMany(Comment, {
 
 Blog.hasMany(Comment, {
   foreignKey: "blog_id",
-  onDelete: "CASCADE",
+
 });
 
 Blog.belongsTo(User, {

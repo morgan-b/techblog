@@ -26,11 +26,34 @@ router.get("/", async (req, res) => {
   }
 });
 
-//get single blog post with comments
-router.get("/blog/:id", withAuth, async (req, res) => {
+
+
+// load login page
+router.get('/login', (req, res) => {
+    if (req.session.logged_in) {
+      res.redirect('/');
+      return;
+    }
+  
+    res.render('login');
+  });
+
+//load sign up page
+  router.get('/signup', (req, res) => {
+    if (req.session.logged_in) {
+      res.redirect('/');
+      return;
+    }
+  
+    res.render('signup');
+  });
+
+  //get single blog post with comments
+router.get("/blog/:id", async (req, res) => {
   try {
     const blogPost = await Blog.findByPk(req.params.id, {
-      attributes: ["id", "title", "created_at", "content", "user_id"],
+
+      attributes: ["id", "title", "date_created", "content", "user_id"],
       include: [
         {
           model: User,
@@ -42,34 +65,14 @@ router.get("/blog/:id", withAuth, async (req, res) => {
       ],
     });
 
-    const blogP = blogPost.map((blog) => blog.get({ plain: true }));
-    res.render("blog", {
-      blogP,
+    const blogP = blogPost.get({ plain: true });
+    res.render("blogpost", {
+      ...blogP,
       logged_in: req.session.logged_in,
+
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
-// load login page
-router.get('/login', (req, res) => {
-    if (req.session.loggedIn) {
-      res.redirect('/');
-      return;
-    }
-  
-    res.render('login');
-  });
-
-//load sign up page
-  router.get('/signup', (req, res) => {
-    if (req.session.loggedIn) {
-      res.redirect('/');
-      return;
-    }
-  
-    res.render('signup');
-  });
-
   module.exports = router;

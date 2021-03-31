@@ -2,6 +2,18 @@ const router = require('express').Router();
 const { User } = require('../../models');
 
 
+router.get('/', async (req, res) => {
+  try { const allUsers = await User.findAll({
+    
+  })
+  res.status(200).json(allUsers);
+}
+catch (err) {
+  console.log(err);
+  res.status(500).json(err);
+}
+})
+
 //create a new user
 router.post('/', async (req, res) => {
     try {
@@ -11,8 +23,8 @@ router.post('/', async (req, res) => {
       });
   
       req.session.save(() => {
-        req.session.username = dbUserData.username;
-        req.session.loggedIn = true;
+        
+        req.session.logged_in = true;
   
         res.status(200).json(dbUserData);
       });
@@ -65,6 +77,7 @@ router.post('/logout', (req, res) => {
     // TODO: Add a comment describing the functionality of this method
     req.session.destroy(() => {
       res.status(204).end();
+    
     });
   } else {
     res.status(404).end();

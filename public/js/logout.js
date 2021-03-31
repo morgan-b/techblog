@@ -1,3 +1,6 @@
+let logoutBtn = document.querySelector("#logoutButton")
+
+
 const logout = async () => {
     // TODO: Add a comment describing the functionality of this expression
     const response = await fetch('/api/users/logout', {
@@ -13,5 +16,5 @@ const logout = async () => {
     }
   };
   
-  document.querySelector('#logout').addEventListener('click', logout);
+logoutBtn.addEventListener('click', logout);
   

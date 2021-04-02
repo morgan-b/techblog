@@ -65,29 +65,5 @@ router.delete("/:id", withAuth, (req, res) => {
 });
 
 
-router.get('/:id', withAuth, async (req, res) => {
-  try {
-    const blogPost = await Blog.findByPk( req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ["id", "name"],
-        },
-        // {
-        //   model: Comment,
-        //   attributes: ["id","conte", "date_created", "user_id"],
-        // },
-      ],
-    });
-    if(!blogPost) {
-      res.status(404).json({ message: "Can't find blog post!" });
-      return;
-    }
-    res.status(200).json(blogPost);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 
 module.exports = router;

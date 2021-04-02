@@ -3,7 +3,17 @@ const router = require('express').Router();
 const { Comment, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+router.get('/', (req, res) => {
+  Comment.findAll({
+    user_id: req.session.id,
 
+  })
+    .then(dbCommentData => res.json(dbCommentData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 // router.get('/', async (req, res) => {
 
 //     try {
@@ -14,9 +24,10 @@ const withAuth = require('../../utils/auth');
 //               model: User,
 //               attributes: ["username", "id"],
 //             },
+//           ],
 //     }),
 //     const comment = allComment.map((comment) => comment.get({ plain: true }));
-//     res.render("", {
+//     res.render("blogpost", {
 //       comment,
 //       logged_in: req.session.logged_in,
 //     });
@@ -27,20 +38,15 @@ const withAuth = require('../../utils/auth');
 
 
 
-router.post('/', withAuth, (req, res) => {
-  // check the session
-  if (req.session) {
-    Comment.create({
-      comment_text: req.body.comment_text,
-      post_id: req.body.post_id,
-      // use the id from the session
+router.post('/', withAuth, async (req, res) => {
+  try {
+    const newComment = await Comment.create({
+      ...req.body,
       user_id: req.session.user_id,
-    })
-      .then(dbCommentData => res.json(dbCommentData))
-      .catch(err => {
-        console.log(err);
-        res.status(400).json(err);
-      });
+    });
+    res.json(newComment);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 

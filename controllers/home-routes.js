@@ -48,31 +48,37 @@ router.get('/login', (req, res) => {
     res.render('signup');
   });
 
-  //get single blog post with comments
-router.get("/blog/:id", async (req, res) => {
-  try {
-    const blogPost = await Blog.findByPk(req.params.id, {
 
-      attributes: ["id", "title", "date_created", "content", "user_id"],
-      include: [
-        {
-          model: User,
-          attributes: ["username", "id"],
-        },
-        { 
-        model: Comment, 
-        attributes: ["comment", "blog_id", "user_id"] },
-      ],
-    });
+  router.get('/blog/:id', async (req, res) => {
+    try {
+      const blogData = await Blog.findByPk(req.params.id, {
+        include: [
+          {
+            model: Comment,
+            attributes: ['id', 'comment', 'blog_id', 'user_id', 'date_created'],
+            include: {
+              model: User,
+              attributes: ['username', 'id']
+            }
+          },
+          {
+            model: User,
+            attributes: ['username','id']
+          }
+        ]
+      })
+  
+      if (blogData) {
+        const blog= blogData.get({ plain: true });
+  
+        res.render('blogpost', { blog ,
+        logged_in: req.session.logged_in});
+      } else {
+        res.status(404).end();
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
-    const blogP = blogPost.get({ plain: true });
-    res.render("blogpost", {
-      ...blogP,
-      logged_in: req.session.logged_in,
-
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
   module.exports = router;

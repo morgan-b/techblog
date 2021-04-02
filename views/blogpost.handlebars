@@ -3,21 +3,43 @@
 
 
 <!-- only display if logged in -->
-{{#if logged_in}}
-<form class="comment-form">
-  <div>
-    <textarea class="ml-5" name="comment-body"></textarea>
-  </div>
 
-  <div>
-    <button class="button is-warning ml-5 mb-5" type="submit">add comment</button>
-  </div>
-  
-</form>
-{{/if}}
+{{#if blog.comments}}
+    <section class="card">
+      <div class="card-header">
+        <h3>Comments</h3>
+      </div>
 
-{{!-- {{> comments blog.comments}} --}}
+      <div class="card-body">
+        {{#each blog.comments}}
+          <div>
+            <p>
+              {{comment}}
+            </p>
+            <p>
+              &mdash; {{user.username}}, {{format_time date_created}}
+            </p>
+          </div>
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
 
-{{#if logged_in}}
-<script src="/javascript/comment.js"></script>
-{{/if}} --}}
+ <form id="new-comment-form" class="card">
+    <div class="card-header">
+      <h3>Add New Comment</h3>
+    </div>
+
+    <div class="card-body">
+      <input type="hidden" name="blog-id" value="{{blog.id}}" />
+
+      <label class="form-label" for="comment">Comment</label>
+
+      <textarea name="comment" class="form-input"></textarea>
+
+      <button type="submit" class="btn">Submit</button>
+    </div>
+  </form>
+</div>
+
+<script src="/js/comment.js"></script>

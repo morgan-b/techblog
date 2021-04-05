@@ -1,0 +1,26 @@
+<div class="card blogedit">
+
+    <h2 class="card-header">Edit Blog</h2>
+
+
+    <div class="card blogedits">
+        <form id="edit-blog-form">
+            <input type="hidden" name="blog-id" value={{blog.id}} />
+  
+                <span class="input-group-text">Title</span>
+                <input type="text" id="blog-title" name="post-title" value="{{blog.title}}" class="form-input" />
+
+     
+                <span class="input-group-text">Content</span>
+                <textarea class="form-control" name="blog-content" aria-label="With textarea">{{blog.content}}</textarea>
+          
+
+
+            <button type="submit" id="updatebtn" class="btn btn-primary">Update</button>
+
+            <button type="button" id="deletebtn" class="btn btn-primary">Delete</button>
+        </form>
+    </div>
+</div>
+
+<script src="/js/editblog.js"></script>

@@ -1,0 +1,55 @@
+<!-- individual blog post --->
+
+
+<section>
+
+    <h3>Your Blogs</h3>
+
+    {{#each blogs}}
+    <div class="card yourblog">
+        <div class="card-header">{{title}}</div>
+
+        <div class="card-body">
+
+            <div>
+                <p>
+                    {{content}}
+                </p>
+                <p>
+                    &mdash; {{format_time date_created}}
+                </p>
+            </div>
+                <a href="/dashboard/edit/{{id}}" class="btn btn-primary">Edit</a>
+
+        </div>
+
+    </div>
+    {{/each}}
+</section>
+
+
+
+
+<!-- add new blog -->
+
+<form id="new-blog-form" class="card mb-6 newblog">
+    <div class="card-header">
+        <h3>Add New Blog</h3>
+    </div>
+
+
+    <div class="input-group">
+        <span class="input-group-text">Title</span>
+        <textarea name="title" class="form-input"></textarea>
+    </div>
+    <div class="input-group">
+
+        <span class="input-group-text">Content</span>
+        <textarea name="content" class="form-input" aria-label="Content"></textarea>
+    </div>
+    <button type="submit" class="button">Submit</button>
+
+
+</form>
+
+<script src="/js/newblog.js"></script>

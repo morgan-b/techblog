@@ -1,17 +1,21 @@
-<section class="card mb-6">
+
+<div class="card mb-6 maincards">
 
     <a href="/blog/{{id}}"></a>
+    <h4 class="card-header">{{title}}</h4>
+      <div class="card-body">
+    <p class="card-text">{{content}}</p>
+    <p class="card-text">Written by: {{user.username}}</p>
+    <p class="card-text">Date Created:{{format_time date_created}}</p>
 
-    <div class="card-body">
-        <h4 class="card-title">{{title}}</h4>
-        <p class="card-text">{{content}}</p>
-        <p class="card-text">Written by: {{user.username}}</p>
-        <p class="card-text">Date Created:{{format_time date_created}}</p>
+
+
+
+  </div>
+
+</div>
 
 
         
-    </div>
+
    
-            </section>
-
-

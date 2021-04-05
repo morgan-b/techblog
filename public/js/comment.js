@@ -4,11 +4,6 @@ async function commentFormHandler(event) {
     const comment = document.querySelector('textarea[name="comment"]').value.trim();
     const blogId = document.querySelector('input[name="blog-id"]').value;
 
-
-  
-    // const blog_id = window.location.toString().split('/')[
-    //   window.location.toString().split('/').length - 1
-
   
     if (comment) {
         const response = await fetch('/api/comments', {

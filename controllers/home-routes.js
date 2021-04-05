@@ -48,8 +48,29 @@ router.get('/login', (req, res) => {
     res.render('signup');
   });
 
+  router.get("/dashboard", withAuth, async (req, res) => {
+    try {
+      const allBlog = await Blog.findAll({
+        where: {
+          user_id: req.session.user_id,
+      }
+      });
+          
+      
+      const blogs = allBlog.map((blog) => blog.get({ plain: true }));
+      res.render("dashboard", {
+  
+        blogs,
+        user_id: req.session.user_id,
+        logged_in: req.session.logged_in
+  
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
-  router.get('/blog/:id', async (req, res) => {
+  router.get('/blog/:id', withAuth,async (req, res) => {
     try {
       const blogData = await Blog.findByPk(req.params.id, {
         include: [

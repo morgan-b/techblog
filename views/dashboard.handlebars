@@ -7,16 +7,16 @@
 
     {{#each blogs}}
     <div class="card yourblog">
-        <div class="card-header">{{title}}</div>
+        <h4 class="card-header">{{title}}</h4>
 
         <div class="card-body">
 
             <div>
-                <p>
+                <h5>
                     {{content}}
-                </p>
+                </h5>
                 <p>
-                    &mdash; {{format_time date_created}}
+                  Date Created: {{format_time date_created}}
                 </p>
             </div>
                 <a href="/dashboard/edit/{{id}}" class="btn btn-primary">Edit</a>
@@ -38,17 +38,18 @@
     </div>
 
 
-    <div class="input-group">
+
         <span class="input-group-text">Title</span>
         <textarea name="title" class="form-input"></textarea>
-    </div>
-    <div class="input-group">
+
+
 
         <span class="input-group-text">Content</span>
         <textarea name="content" class="form-input" aria-label="Content"></textarea>
-    </div>
-    <button type="submit" class="button">Submit</button>
 
+     <div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
 
 </form>
 

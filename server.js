@@ -2,24 +2,21 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
-const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 
-const sequelize = require('./config/connection');
 const hbs = exphbs.create({ helpers });
 
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
-
-const PORT = process.env.PORT || 3001;
 const app = express();
-app.set("port", PORT);
+const PORT = process.env.PORT || 3001;
+
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 
 const sess = {
   secret: 'Super secret secret',
   cookie: {},
-  resave: true,
+  resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize
@@ -35,10 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(routes);
-app.get('/', function(req, res){
-  res.redirect('/');
-});
+app.use(require('./controllers/'))
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, function() {

@@ -3,7 +3,7 @@ const blogid = document.querySelector('input[name="blog-id"]').value.trim();
 //edit blog
 const editFormHandler = async function (event) {
   event.preventDefault();
-  let title = document.querySelector('input[name="post-title"]').value.trim();
+  let title = document.querySelector('textarea[name="post-title"]').value.trim();
 
   let content = document.querySelector('textarea[name="blog-content"]').value.trim();
 
@@ -20,7 +20,7 @@ const editFormHandler = async function (event) {
   });
 
   if (response.ok) {
-    document.location.reload();
+    document.location.replace('/dashboard');
   } else {
     alert(response.statusText);
   }

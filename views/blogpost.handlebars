@@ -5,41 +5,46 @@
 <!-- only display if logged in -->
 
 {{#if blog.comments}}
-    <section class="card">
-      <div class="card-header">
-        <h3>Comments</h3>
-      </div>
-
-      <div class="card-body">
-        {{#each blog.comments}}
-          <div>
-            <p>
-              {{comment}}
-            </p>
-            <p>
-              &mdash; {{user.username}}, {{format_time date_created}}
-            </p>
-          </div>
-        {{/each}}
-      </div>
-    </section>
-  {{/if}}
-
- <form id="new-comment-form" class="card">
+<section class="card">
     <div class="card-header">
-      <h3>Add New Comment</h3>
+        <h3>Comments</h3>
     </div>
 
     <div class="card-body">
-      <input type="hidden" name="blog-id" value="{{blog.id}}" />
-
-      <label class="form-label" for="comment">Comment</label>
-
-      <textarea name="comment" class="form-input"></textarea>
-
-      <button type="submit" class="btn">Submit</button>
+        {{#each blog.comments}}
+        <div>
+            <p>
+                {{comment}}
+            </p>
+            <p>
+                &mdash; {{user.username}}, {{format_time date_created}}
+            </p>
+        </div>
+        {{/each}}
     </div>
-  </form>
+</section>
+{{/if}}
+<div class="card">
+<form id="new-comment-form">
+    
+        <div class="card-header">
+            <h3>Add New Comment</h3>
+        </div>
+<input type="hidden" name="blog-id" value="{{blog.id}}" />
+
+        <div class="card-body">
+            
+
+            <span class="input-group-text">Comment</span>
+
+            <textarea name="comment" class="form-control"></textarea>
+       
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+     </div>
+</form>
 </div>
+
 
 <script src="/js/comment.js"></script>

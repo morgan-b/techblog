@@ -5,7 +5,7 @@ const withAuth = require('../utils/auth');
 
 
 // get all posts
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const allBlog = await Blog.findAll({
       attributes: ["id", "title", "date_created", "content"],

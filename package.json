@@ -8,6 +8,10 @@
     "start": "node server.js",
     "seed": "node seeds/seed.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morgan-b/techblog.git"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

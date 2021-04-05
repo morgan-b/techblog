@@ -36,6 +36,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
+app.get('/', function(req, res){
+  res.redirect('/');
+});
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, function() {
